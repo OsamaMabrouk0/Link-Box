@@ -341,3 +341,11 @@ document.getElementById("modalOverlay").addEventListener("click", () => {
 // إذا كان لديك زر لإغلاق النموذج، ربطه بنفس الدالة
 document.getElementById("closeButton").addEventListener("click", cancelEdit);
 
+new Sortable(linksList, {
+    animation: 150,
+    handle: ".drag-handle",
+    touchStartThreshold: 10, // تحديد العتبة لبدء السحب
+    onEnd: function (evt) {
+        updateOrderInLocalStorage();
+    },
+});
