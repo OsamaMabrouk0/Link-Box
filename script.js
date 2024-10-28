@@ -99,26 +99,20 @@ function displayLink(link) {
         <h3>${link.name}</h3>
         <p>${link.description}</p>
         <div class="link-icons">
-            <a href="${link.url
-        }" target="_blank" onclick="incrementOpenCount('${link.url
-        }')">فتح الرابط</a>
+            <a href="${link.url}" target="_blank" onclick="incrementOpenCount('${link.url}')">فتح الرابط</a>
             <span class="open-count"><i class="fas fa-eye"></i> ${openCount}</span>
-            <button class="pin-button" onclick="toggleImportance('${link.url
-        }')">
-                <i class="fas ${link.important ? "fa-star" : "fa-star-half-alt"
-        }"></i>
+            <button class="pin-button" onclick="toggleImportance('${link.url}')">
+                <i class="fas ${link.important ? "fa-star" : "fa-star-half-alt"}"></i>
             </button>
         </div>
-        <button class="delete-button" onclick="deleteLink('${link.url
-        }')"><i class="fas fa-trash"></i></button>
-        <button class="edit-button" onclick="editLink('${link.url
-        }')"><i class="fas fa-edit"></i></button>
-        <button class="share-button" onclick="shareLink('${link.url
-        }')"><i class="fas fa-share-alt"></i></button>
+        <button class="delete-button" onclick="deleteLink('${link.url}')"><i class="fas fa-trash"></i></button>
+        <button class="edit-button" onclick="editLink('${link.url}')"><i class="fas fa-edit"></i></button>
+        <button class="share-button" onclick="shareLink('${link.url}')"><i class="fas fa-share-alt"></i></button>
     `;
 
     document.getElementById("linksList").appendChild(linkItem);
 }
+
 
 function loadLinks() {
     const savedLinks = JSON.parse(localStorage.getItem("links")) || [];
@@ -140,13 +134,14 @@ function updateOrderInLocalStorage() {
     const linkItems = document.querySelectorAll("#linksList .link-item");
     const updatedLinks = Array.from(linkItems).map((item) => {
         const url = item.getAttribute("data-url");
-        return JSON.parse(localStorage.getItem("links")).find(
-            (link) => link.url === url
-        );
+        return JSON.parse(localStorage.getItem("links")).find((link) => link.url === url);
     });
 
     localStorage.setItem("links", JSON.stringify(updatedLinks));
 }
+
+
+
 
 function incrementOpenCount(url) {
     const savedLinks = JSON.parse(localStorage.getItem("links")) || [];
@@ -346,32 +341,3 @@ document.getElementById("modalOverlay").addEventListener("click", () => {
 // إذا كان لديك زر لإغلاق النموذج، ربطه بنفس الدالة
 document.getElementById("closeButton").addEventListener("click", cancelEdit);
 
-new Sortable(linksList, {
-    animation: 150,
-    handle: ".drag-handle",
-    touchStartThreshold: 5, // عتبة بدء السحب (اختر قيمة منخفضة لتسهيل السحب)
-    forceFallback: true, // يجبر Sortable على استخدام سحب احتياطي لزيادة التوافق
-    onEnd: function (evt) {
-        updateOrderInLocalStorage();
-    },
-});
-const isMobile =
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-    );
-
-if (isMobile) {
-    // Remove the drag handle element or disable dragging functionality
-    const dragHandles = document.querySelectorAll(".drag-handle");
-    dragHandles.forEach((handle) => (handle.style.display = "none"));
-} else {
-    // Initialize Sortable.js as usual
-    new Sortable(linksList, {
-        animation: 150,
-        handle: ".drag-handle",
-        touchStartThreshold: 10,
-        onEnd: function (evt) {
-            updateOrderInLocalStorage();
-        },
-    });
-}
