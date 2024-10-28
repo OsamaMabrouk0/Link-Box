@@ -292,7 +292,6 @@ textarea:focus {
     cursor: grab;
     color: #888;
     margin-right: 48%;
-    touch-action: none;
 
 }
 
