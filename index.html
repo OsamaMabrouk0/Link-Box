@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لينك بوكس</title>
+    <link rel="icon" href="cloud-arrow-up-solid.svg" type="image/SVG">
+    <meta name="description" content="مدير الروابط: تطبيق لتنظيم وإدارة الروابط المهمة بشكل سريع وسهل.">
+    <meta name="keywords" content="مدير الروابط, إدارة الروابط, تنظيم الروابط, تطبيق ويب">
+    <meta http-equiv="Content-Language" content="ar">
+    <meta name="robots" content="index, follow">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#0044cc">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <link rel="stylesheet" href="fonts/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="libs/sweetalert2/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="fonts/cairo/cairo.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+
+<body>
+    <h1>لينك بوكس</h1>
+    <div class="container">
+        <input type="text" id="searchInput" placeholder="بحث عن اسم الرابط..." oninput="filterLinks()"
+            onblur="hideNoResultsMessage()">
+        <select id="filterImportance" onchange="filterByImportance()">
+            <option value="all">عرض الكل</option>
+            <option value="important">مهم</option>
+            <option value="normal">عادي</option>
+        </select>
+
+        <button class="show-form-button" onclick="toggleForm()">إضافة رابط جديد</button>
+
+        <!-- نافذة المنبثقة والتغليف الخاص بها -->
+        <div id="modalOverlay" class="modal-overlay" onclick="toggleForm()"></div>
+        <div class="link-container modal-content" id="addLinkForm">
+            <input type="text" id="linkName" placeholder="اسم الرابط">
+            <input type="text" id="linkUrl" placeholder="عنوان الرابط (URL)">
+            <textarea id="linkDescription" rows="2" placeholder="(اختياري)وصف الرابط"></textarea>
+            <select id="linkImportance">
+                <option value="normal">عادي</option>
+                <option value="important">مهم</option>
+            </select>
+            <button class="save-button" onclick="saveOrUpdateLink()">حفظ الرابط</button>
+            <button class="show-form-button" onclick="cancelEdit()">إغلاق</button>
+        </div>
+
+        <div id="linksList"></div>
+        <div class="error-message" id="noResultsMessage" style="display: none;">لا توجد نتائج تطابق البحث.</div>
+    </div>
+
+    <script src="node_modules/sortablejs/Sortable.min.js"></script>
+    <script src="libs/sweetalert2/dist/sweetalert2.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
